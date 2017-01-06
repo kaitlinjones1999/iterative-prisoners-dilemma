@@ -6,9 +6,9 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'Team Fourteen' # Only 10 chars displayed.
-strategy_name = 'Collude 3, Betray 3'
-strategy_description = 'To collude 3 times, betray 3 times, and then alternate'
+team_name = 'Team 13' # Only 10 chars displayed.
+strategy_name = 'Collude if oppent has higher score'
+strategy_description = 'Collude when my score is lower than their score'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -26,13 +26,10 @@ def move(my_history, their_history, my_score, their_score):
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
     
-    if len(my_history)==0: # It's the first round; collude.
+    if their_score > my_score:
         return 'c'
-    if 'ccc' in my_history[-3:]: #collude the first three times
+    else:
         return 'b'
-    if 'bbb' in my_history[-3:]: #betray three times
-        return 'c'
-
     
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
@@ -52,22 +49,22 @@ def test_move(my_history, their_history, my_score, their_score, result):
 
 if __name__ == '__main__':
      
-    # Test 1: Collude on first move.
+    # Test 1: Betray on first move.
     if test_move(my_history='',
               their_history='', 
               my_score=0,
               their_score=0,
-              result='c'):
+              result='b'):
          print 'Test passed'
-     # Test 2: After I have colluded three times I should betray.
+     # Test 2: Continue betraying if they collude despite being betrayed.
     test_move(my_history='ccc',
-              their_history='ccc', 
+              their_history='bbb', 
               # Note the scores are for testing move().
               # The history and scores don't need to match unless
               # that is relevant to the test of move(). Here,
               # the simulation (if working correctly) would have awarded 
               # 300 to me and -750 to them. This test will pass if and only if
               # move('bbb', 'ccc', 0, 0) returns 'b'.
-              my_score=0, 
-              their_score=0,
-              result='b')             
+              my_score=-750, 
+              their_score=300,
+              result='c')             
