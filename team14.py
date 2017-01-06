@@ -6,7 +6,7 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'Team 13' # Only 10 chars displayed.
+team_name = 'Team 14' # Only 10 chars displayed.
 strategy_name = 'Collude if oppent has higher score'
 strategy_description = 'Collude when my score is lower than their score'
     
