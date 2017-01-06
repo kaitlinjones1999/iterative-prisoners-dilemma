@@ -7,8 +7,8 @@
 ####
 
 team_name = 'Team Fourteen' # Only 10 chars displayed.
-strategy_name = 'The name the team gives to this strategy'
-strategy_description = 'This teams strategy is too collude'
+strategy_name = 'Collude 3, Betray 3'
+strategy_description = 'To collude 3 times, betray 3 times, and then alternate'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -26,7 +26,12 @@ def move(my_history, their_history, my_score, their_score):
     # Analyze my_history and their_history and/or my_score and their_score.
     # Decide whether to return 'c' or 'b'.
     
-    return 'c'
+    if len(my_history)==0: # It's the first round; collude.
+        return 'c'
+    if 'ccc' in my_history[-3:]: #collude the first three times
+        return 'b'
+    if 'bbb' in my_history[-3:]: #betray three times
+        return 'c'
 
     
 def test_move(my_history, their_history, my_score, their_score, result):
@@ -47,15 +52,15 @@ def test_move(my_history, their_history, my_score, their_score, result):
 
 if __name__ == '__main__':
      
-    # Test 1: Betray on first move.
+    # Test 1: Collude on first move.
     if test_move(my_history='',
               their_history='', 
               my_score=0,
               their_score=0,
-              result='b'):
+              result='c'):
          print 'Test passed'
-     # Test 2: Continue betraying if they collude despite being betrayed.
-    test_move(my_history='bbb',
+     # Test 2: After I have colluded three times I should betray.
+    test_move(my_history='ccc',
               their_history='ccc', 
               # Note the scores are for testing move().
               # The history and scores don't need to match unless
